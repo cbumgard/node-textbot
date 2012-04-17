@@ -1,6 +1,4 @@
-var express = require('express')
-  , util = require('util')
-  , argv = require('optimist')
+var argv = require('optimist')
       .usage('Usage: $0 -c [config]')
       .demand(['c'])
       .alias('c', 'config')
