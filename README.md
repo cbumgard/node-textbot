@@ -1,6 +1,10 @@
 # TextBot
 A node.js server that listens for text (SMS) messages containing Javascript and texts you back the results.
 
+## Is This Real?
+
+Yes - you can try it by sending 'Hello World!' to +1 415-702-3383 (don't forget to quote the string!).
+
 ## Seriously? Why?
 
 I was explaining the basics of programming via text message today with someone. It started initially as a joke in response to a non-programming message. Eventually I was saying "open Chrome's Developer JavaScript Console and type the following: var x = 10;..." It occurred to me it would be fun to have a node.js bot that can receive these SMS-sized chunks of Javascript, evaluate and execute them, and send back the results. 
