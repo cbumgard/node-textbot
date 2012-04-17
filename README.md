@@ -29,6 +29,6 @@ Check out ./config.js. Basically just tell it your Twilio account information. I
 
 ## Built with These Great Node.js Modules
 
-+ twilio
++ twilio (depends on express)
 + optimist
 + sandbox
