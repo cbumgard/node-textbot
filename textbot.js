@@ -16,15 +16,15 @@ var TwilioClient = require('twilio').Client,
 var phone = client.getPhoneNumber(creds.outgoing);
 console.log('TextBot listening for SMS code requests on %s', creds.incoming);  
 phone.setup(function() {
-  phone.on('incomingSms', function(req, res) {
-    // req contains the Twilio request parameters.
+  phone.on('incomingSms', function(reqParams, res) {
+    // reqParams contains the Twilio request parameters.
     // res is a Twiml.Response object.
-    console.log('Received incoming SMS with text: ' + req.Body);
-    console.log('From: ' + req.From);
-    handleCodeRequest(req.Body, function(output) {
+    console.log('Received incoming SMS with text: ' + reqParams.Body);
+    console.log('From: ' + reqParams.From);
+    handleCodeRequest(reqParams.Body, function(output) {
       console.log('TextBot ran code "%s" from %s. Texting back result "%s"', 
-        req.Body, req.From, output.result);   
-      sendSMS(output.result, req.From);   
+        reqParams.Body, reqParams.From, output.result);   
+      sendSMS(output.result, reqParams.From);   
     });
   });  
 });
