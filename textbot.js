@@ -6,21 +6,21 @@ var argv = require('optimist')
       .argv
 ;
 
-var config = require(argv.config);
-
-var TwilioClient = require('twilio').Client,
+var config = require(argv.config),
+  TwilioClient = require('twilio').Client,
   Twiml = require('twilio').Twiml,
   creds = config.Twilio,
-  client = new TwilioClient(creds.sid, creds.authToken, creds.hostname);
+  client = new TwilioClient(creds.sid, creds.authToken, creds.hostname),
+  Sandbox = require('sandbox'),
+  sandbox = new Sandbox()
+;
 
-var phone = client.getPhoneNumber(creds.outgoing);
 console.log('TextBot listening for SMS code requests on %s', creds.incoming);  
+var phone = client.getPhoneNumber(creds.outgoing);
 phone.setup(function() {
   phone.on('incomingSms', function(reqParams, res) {
     // reqParams contains the Twilio request parameters.
     // res is a Twiml.Response object.
-    console.log('Received incoming SMS with text: ' + reqParams.Body);
-    console.log('From: ' + reqParams.From);
     handleCodeRequest(reqParams.Body, function(output) {
       console.log('TextBot ran code "%s" from %s. Texting back result "%s"', 
         reqParams.Body, reqParams.From, output.result);   
@@ -28,9 +28,6 @@ phone.setup(function() {
     });
   });  
 });
-
-var Sandbox = require('sandbox');
-sandbox = new Sandbox();
 
 var handleCodeRequest = function (code, callback) {
   sandbox.run(code, callback);
